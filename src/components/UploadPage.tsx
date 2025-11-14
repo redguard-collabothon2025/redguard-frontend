@@ -42,7 +42,6 @@ export function UploadPage({ onDocumentUploaded }: UploadPageProps) {
     setIsUploading(true);
     setUploadProgress(0);
 
-    // Simulate upload progress
     const interval = setInterval(() => {
       setUploadProgress((prev) => {
         if (prev >= 100) {
@@ -58,109 +57,128 @@ export function UploadPage({ onDocumentUploaded }: UploadPageProps) {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-12">
-      <div className="text-center mb-12">
-        <h2 className="text-white mb-4">Upload Contract Document</h2>
-        <p className="text-gray-400">
-          Drag & drop your contract or click to browse
-        </p>
-      </div>
+    <div className="container mx-auto py-4">
+      <div className="relative max-w-5xl mx-auto overflow-hidden rounded-2xl border border-[#262629] bg-[#1A1A1D] px-8 py-10 shadow-[0_24px_60px_rgba(0,0,0,0.9)]">
+        {/* subtle red glow accent */}
+        <div className="pointer-events-none absolute -top-40 -right-24 h-80 w-80 rounded-full bg-[#FF2D2D]/18 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 -left-16 h-64 w-64 rounded-full bg-[#FF4747]/10 blur-3xl" />
 
-      {/* Upload Zone */}
-      <div
-        className={`relative border-2 border-dashed rounded-lg p-12 mb-8 transition-all ${
-          isDragging
-            ? "border-[#EE0000] bg-[#EE0000]/10"
-            : "border-gray-700 bg-[#1a1a1a] hover:border-gray-600"
-        }`}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
-        <input
-          type="file"
-          id="file-upload"
-          className="hidden"
-          accept=".pdf,.txt,.docx"
-          onChange={handleFileSelect}
-        />
+        {/* Header */}
+        <div className="text-center mb-10 relative z-10">
+          <h2 className="text-2xl font-semibold text-[#E6E6E9] mb-3">
+            Upload Contract Document
+          </h2>
+          <p className="text-sm text-[#9A9AA2]">
+            Drag &amp; drop your contract or click to browse. RedGuard will
+            analyze it securely inside your cluster.
+          </p>
+        </div>
 
-        <label
-          htmlFor="file-upload"
-          className="cursor-pointer flex flex-col items-center justify-center"
+        {/* Upload Zone */}
+        <div
+          className={`relative mb-8 rounded-xl border-2 border-dashed p-10 transition-all duration-300 ease-out
+          ${
+            isDragging
+              ? "border-[#FF2D2D] bg-[#FF2D2D]/8 shadow-[0_0_40px_rgba(255,45,45,0.45)] scale-[1.01]"
+              : "border-[#262629] bg-[#0D0D0F] hover:border-[#FF2D2D]/60 hover:bg-[#0D0D0F]/95"
+          }`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
         >
-          <Upload className="w-16 h-16 text-[#EE0000] mb-4" />
+          <input
+            type="file"
+            id="file-upload"
+            className="hidden"
+            accept=".pdf,.txt,.docx"
+            onChange={handleFileSelect}
+          />
 
-          {file ? (
-            <div className="text-center">
-              <div className="flex items-center gap-2 mb-2">
-                <FileText className="w-5 h-5 text-[#EE0000]" />
-                <span className="text-white">{file.name}</span>
-              </div>
-              <p className="text-gray-400 text-sm">
-                {(file.size / 1024).toFixed(2)} KB
-              </p>
+          <label
+            htmlFor="file-upload"
+            className="cursor-pointer flex flex-col items-center justify-center text-center"
+          >
+            <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#1A1A1D] shadow-[0_14px_30px_rgba(0,0,0,0.9)] border border-[#262629]">
+              <Upload className="w-10 h-10 text-[#FF3A3A]" />
             </div>
-          ) : (
-            <>
-              <h3 className="text-white mb-2">
-                Drop your contract here or click to browse
-              </h3>
-              <p className="text-gray-400">Supported formats: PDF, TXT, DOCX</p>
-            </>
-          )}
-        </label>
 
-        {/* Format Badges */}
-        <div className="flex justify-center gap-3 mt-6">
-          <span className="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm border border-gray-700">
-            PDF
-          </span>
-          <span className="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm border border-gray-700">
-            TXT
-          </span>
-          <span className="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm border border-gray-700">
-            DOCX
-          </span>
-        </div>
-      </div>
+            {file ? (
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <FileText className="w-5 h-5 text-[#FF2D2D]" />
+                  <span className="text-sm font-medium text-[#E6E6E9]">
+                    {file.name}
+                  </span>
+                </div>
+                <p className="text-xs text-[#9A9AA2]">
+                  {(file.size / 1024).toFixed(2)} KB
+                </p>
+              </div>
+            ) : (
+              <>
+                <h3 className="text-base font-medium text-[#E6E6E9] mb-2">
+                  Drop your contract here or click to browse
+                </h3>
+                <p className="text-sm text-[#9A9AA2]">
+                  Supported formats: PDF, TXT, DOCX
+                </p>
+              </>
+            )}
+          </label>
 
-      {/* Privacy Badge */}
-      <div className="flex items-center justify-center gap-3 mb-8 p-4 bg-[#1a1a1a] border border-gray-800 rounded-lg">
-        <Shield className="w-5 h-5 text-green-500" />
-        <div>
-          <p className="text-white">
-            <span className="inline-flex items-center gap-2">
-              Processing in memory - no disk storage
-              <Check className="w-4 h-4 text-green-500" />
-            </span>
-          </p>
-          <p className="text-gray-400 text-sm">
-            Your data never leaves this cluster
-          </p>
-        </div>
-      </div>
-
-      {/* Upload Progress */}
-      {isUploading && (
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-gray-300">Analyzing document...</span>
-            <span className="text-gray-300">{uploadProgress}%</span>
+          {/* Format badges */}
+          <div className="mt-6 flex justify-center gap-3">
+            {["PDF", "TXT", "DOCX"].map((fmt) => (
+              <span
+                key={fmt}
+                className="px-3 py-1 rounded-full border border-[#262629] bg-[#1A1A1D] text-xs font-medium text-[#E6E6E9] shadow-[0_10px_24px_rgba(0,0,0,0.6)]"
+              >
+                {fmt}
+              </span>
+            ))}
           </div>
-          <Progress value={uploadProgress} className="h-2 bg-gray-800" />
         </div>
-      )}
 
-      {/* Analyze Button */}
-      <div className="flex justify-center">
-        <Button
-          onClick={handleAnalyze}
-          disabled={!file || isUploading}
-          className="px-8 py-6 bg-[#EE0000] hover:bg-[#CC0000] text-white disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isUploading ? "Analyzing..." : "Analyze Contract"}
-        </Button>
+        {/* Privacy Badge */}
+        <div className="mb-8 flex items-center gap-3 rounded-xl border border-[#262629] bg-[#0D0D0F] px-4 py-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500/15">
+            <Shield className="w-5 h-5 text-emerald-400" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-[#E6E6E9] flex items-center gap-2">
+              Processing in memory – no disk storage
+              <Check className="w-4 h-4 text-emerald-400" />
+            </p>
+            <p className="text-xs text-[#9A9AA2]">
+              Your data never leaves this OpenShift cluster.
+            </p>
+          </div>
+        </div>
+
+        {/* Upload Progress */}
+        {isUploading && (
+          <div className="mb-8">
+            <div className="mb-2 flex items-center justify-between text-xs text-[#E6E6E9]">
+              <span>Analyzing document…</span>
+              <span>{uploadProgress}%</span>
+            </div>
+            <Progress
+              className="h-2 bg-[#0D0D0F] border border-[#262629]"
+              value={uploadProgress}
+            />
+          </div>
+        )}
+
+        {/* Analyze Button */}
+        <div className="flex justify-center">
+          <Button
+            onClick={handleAnalyze}
+            disabled={!file || isUploading}
+            className="px-8 py-3 bg-[#FF2D2D] hover:bg-[#E12626] text-[#E6E6E9] text-sm font-semibold rounded-full shadow-[0_18px_40px_rgba(255,45,45,0.55)] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:-translate-y-0.5"
+          >
+            {isUploading ? "Analyzing..." : "Analyze Contract"}
+          </Button>
+        </div>
       </div>
     </div>
   );
