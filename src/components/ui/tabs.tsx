@@ -123,11 +123,13 @@ export function TabsList({
 // Trigger – text over the animated pill
 export function TabsTrigger({
   className,
+  value,
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+}: React.ComponentProps<typeof TabsPrimitive.Trigger> & {
+  value: string;
+}) {
   const ctx = React.useContext(TabsHighlightContext);
   const ref = React.useRef<HTMLButtonElement | null>(null);
-  const value = (props as any).value as string | undefined;
 
   React.useEffect(() => {
     if (!ctx || !value) return;
@@ -148,6 +150,7 @@ export function TabsTrigger({
         "disabled:pointer-events-none disabled:opacity-40",
         className
       )}
+      value={value}
       {...props}
     >
       <span className="relative z-10">{props.children}</span>
