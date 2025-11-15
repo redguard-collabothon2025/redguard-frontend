@@ -79,8 +79,10 @@ const risks = [
     section: "Section 15.2",
   },
 ];
-
-export function RiskDashboard() {
+interface handleSwitchToViewerI {
+  handleSwitchToViewer: () => void;
+}
+export function RiskDashboard({ handleSwitchToViewer }: handleSwitchToViewerI) {
   const [filterLevel, setFilterLevel] = useState("all");
   const [expandedRisk, setExpandedRisk] = useState<number | null>(null);
 
@@ -371,6 +373,7 @@ export function RiskDashboard() {
                       />
                     </Button>
                     <Button
+                      onClick={handleSwitchToViewer}
                       variant="outline"
                       size="sm"
                       className="border-[#262629] bg-transparent text-xs text-[#E6E6E9] hover:bg-[#1A1A1D]"
