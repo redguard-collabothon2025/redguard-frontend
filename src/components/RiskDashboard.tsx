@@ -128,7 +128,139 @@ export function RiskDashboard({ handleSwitchToViewer }: RiskDashboardProps) {
     loadLatestAnalysis();
   }, []);
 
-  const risks: TopRisk[] = analysis?.topRisks ?? [];
+  // const risks: TopRisk[] = analysis?.topRisks ?? [];
+  const risks: TopRisk[] = [
+    {
+      id: 1,
+      level: "high",
+      category: "Penalties",
+      title: "2000 PLN penalty for withdrawal without notice",
+      description:
+        "The contract introduces a fixed 2000 PLN penalty if you terminate without respecting the 3-month notice period.",
+      section: "§8 ust. 1(a)",
+    },
+    {
+      id: 2,
+      level: "high",
+      category: "Penalties",
+      title: "Up to 1000 PLN penalty for vague 'gross actions'",
+      description:
+        "Penalty up to 1000 PLN based on subjective interpretation of 'gross actions or omissions', which may be abused.",
+      section: "§8 ust. 1(b)",
+    },
+    {
+      id: 3,
+      level: "high",
+      category: "Work Hours",
+      title: "Mandatory extra lessons if minimum exceeded",
+      description:
+        "If minimum required hours are exceeded unintentionally, you are obligated to conduct additional lessons unless you explicitly notify.",
+      section: "§2 ust. 6",
+    },
+    {
+      id: 4,
+      level: "high",
+      category: "Non-compete",
+      title: "Non-compete clause without compensation",
+      description:
+        "Prohibits tutoring or similar services to any of the Principal’s clients without compensation. Legally questionable in Poland.",
+      section: "§7 ust. 2",
+    },
+    {
+      id: 5,
+      level: "high",
+      category: "Travel",
+      title: "Required travel to clients’ homes (no reimbursement)",
+      description:
+        "Contractor must travel to each client’s residence without reimbursement or distance limits.",
+      section: "§2 ust. 1",
+    },
+    {
+      id: 6,
+      level: "high",
+      category: "Work Hours",
+      title: "Obligation to report inability to meet hours",
+      description:
+        "Responsibility for unmet hours is shifted onto the Contractor, even though assigning clients is the Principal’s duty.",
+      section: "§2 ust. 5",
+    },
+
+    // 🟡 MEDIUM RISKS ---------------------------------------------------
+    {
+      id: 7,
+      level: "medium",
+      category: "Work Hours",
+      title: "Minimum weekly hours obligation",
+      description:
+        "Requires 5 hours weekly in September and 20 hours weekly from October. May be unrealistic if clients aren’t assigned.",
+      section: "§2 ust. 4",
+    },
+    {
+      id: 8,
+      level: "medium",
+      category: "Operational",
+      title: "Obligation to call clients the same day",
+      description:
+        "Must call clients on the same day to schedule lessons. Missing deadlines may be interpreted as improper performance.",
+      section: "§3 ust. 1",
+    },
+    {
+      id: 9,
+      level: "medium",
+      category: "Operational",
+      title: "Immediate absence notification requirement",
+      description:
+        "Must immediately inform both client and Principal upon inability to attend a lesson.",
+      section: "§4 ust. 3",
+    },
+    {
+      id: 10,
+      level: "medium",
+      category: "Payment Terms",
+      title: "Payment may be delayed for missing documents",
+      description:
+        "Payment can be delayed if attendance lists or monthly summaries are submitted late. No maximum delay specified.",
+      section: "§5 ust. 5",
+    },
+    {
+      id: 11,
+      level: "medium",
+      category: "Termination",
+      title: "3-month notice period",
+      description:
+        "Unusually long notice period for B2B/civil contracts. Reduces flexibility to change jobs.",
+      section: "§6 ust. 1(a)",
+    },
+
+    // ✅ LOW RISKS ------------------------------------------------------
+    {
+      id: 12,
+      level: "low",
+      category: "Professional Standards",
+      title: "Due diligence clause",
+      description:
+        "Standard confirmation that Contractor performs tasks with due diligence and ethics.",
+      section: "§1 ust. 2",
+    },
+    {
+      id: 13,
+      level: "low",
+      category: "Operational",
+      title: "Reporting frequent cancellations",
+      description:
+        "Contractor must report frequent cancellations by students. Purely administrative duty.",
+      section: "§4 ust. 2",
+    },
+    {
+      id: 14,
+      level: "low",
+      category: "Payment Terms",
+      title: "Defined payment date mechanism",
+      description:
+        "Payment date is when Principal’s account is debited. Typical clause; minor risk of slight delays.",
+      section: "§5 ust. 4",
+    },
+  ];
 
   const getRiskColor = (level: RiskLevel) => {
     switch (level) {
